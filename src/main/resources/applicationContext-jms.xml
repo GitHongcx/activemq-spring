@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置一个连接工厂 -->
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://120.79.91.143:61616"/>
+        <!--设置密码则需要这两项-->
+        <!--<property name="userName" value="system"/>
+        <property name="password" value="123456"/>-->
+    </bean>
+
+    <!-- 配置JmsTemplate -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <!--消息目的地，此处配置可以不指定，则需要在代码中指定-->
+        <!--<property name="defaultDestinationName" value="springQueue" />-->
+        <property name="defaultDestinationName" value="springQueue" />
+        <!--指定发布订阅模式 发送模式，true表示发布订阅模式；false表示点对点模式，默认为false-->
+        <property name="pubSubDomain" value="false"></property>
+    </bean>
+
+</beans>
